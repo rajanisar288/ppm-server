@@ -34,7 +34,7 @@ const adminSignupScheme = new mongoose.Schema({
     type:String,
   },
   dataOfBirth: {
-    type: Date,
+    type: String,
   },
   address:{
       country:{

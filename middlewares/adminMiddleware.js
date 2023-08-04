@@ -1,16 +1,10 @@
+/**
+ * Verify the admin authentication token middleware
+ */
+
 import jwt from "jsonwebtoken";
 import adminModel from "../models/adminModel.js";
 
-
-/*
-##     ##    ###    ##       #### ########     ###    ######## ########       ###    ########  ##     ## #### ##    ##
-##     ##   ## ##   ##        ##  ##     ##   ## ##      ##    ##            ## ##   ##     ## ###   ###  ##  ###   ##
-##     ##  ##   ##  ##        ##  ##     ##  ##   ##     ##    ##           ##   ##  ##     ## #### ####  ##  ####  ##
-##     ## ##     ## ##        ##  ##     ## ##     ##    ##    ######      ##     ## ##     ## ## ### ##  ##  ## ## ##
- ##   ##  ######### ##        ##  ##     ## #########    ##    ##          ######### ##     ## ##     ##  ##  ##  ####
-  ## ##   ##     ## ##        ##  ##     ## ##     ##    ##    ##          ##     ## ##     ## ##     ##  ##  ##   ###
-   ###    ##     ## ######## #### ########  ##     ##    ##    ########    ##     ## ########  ##     ## #### ##    ##
-*/
 const verifyAdmin = async (req, res, next) => {
   const verifyUser = req.headers["authorization"];
   if (verifyUser && verifyUser !== undefined) {

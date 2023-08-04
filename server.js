@@ -2,13 +2,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express  from "express";
 import cors from "cors";
+import bodyParser from 'body-parser';
 import databaseConnection from "./config/dataBase.js"
 const app = express();
 app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 5000;
 databaseConnection(process.env.URL)
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json());
+
 
 import adminRoutes from "./routes/adminRoutes.js"
 
