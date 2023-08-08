@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import adminModel from "../models/adminModel.js";
 import bcrypt from "bcrypt";
 
-export const adminController = {
+const adminController = {
   //Register Admin
   adminRegister: async (req, res) => {
     try {
@@ -140,5 +140,4 @@ export const adminController = {
 
 };
 
-
-
+export default adminController

@@ -13,10 +13,12 @@ databaseConnection(process.env.URL)
 
 
 import adminRoutes from "./routes/adminRoutes.js"
+import userRoutes from  "./routes/userRoutes.js"
 
 // handle route
 // Admin Routes
 app.use('/api/auth' , adminRoutes)
+app.use('/api/auth' , userRoutes)
 app.get('/', (req, res) =>{
     res.send({
         message:"wellcome to ppm server"
