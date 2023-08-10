@@ -22,19 +22,23 @@ const userSchema = new mongoose.Schema({
   },
   dataOfBirth: {
     type: String,
+    required:true
   },
   address:{
       country:{
         type:String,
-        default:'xyz'
+        default:'xyz',
+        required:true
       },
       city:{
-        type:String
+        type:String,
+        required:true
       }
 
   },
   mobileNumber:{
-    type:Number
+    type:Number,
+    required:true
   },
   role:{
     type:String,
