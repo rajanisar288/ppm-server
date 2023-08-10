@@ -10,10 +10,10 @@ import bcrypt from "bcrypt";
 
 const userController = {
   userRegister: async (req, res) => {
-    const { name, email, password, dataOfBirth, address, mobileNumber } =
+    const { name, email, password, dataOfBirth, city, mobileNumber, country } =
       await req.body;
     try {
-      if ((name, email, password, dataOfBirth, address, mobileNumber)) {
+      if ((name, email, password, dataOfBirth, city, mobileNumber,country)) {
         const user = await userModel.findOne({ email });
         if (!user) {
           const salt = await bcrypt.genSalt(10);
@@ -22,9 +22,11 @@ const userController = {
             name,
             email,
             password: hashedPassword,
-            profile,
             dataOfBirth,
-            address,
+            address:{
+              city,
+              country
+            },
             mobileNumber,
           });
           await newUser.save();
