@@ -13,7 +13,7 @@ const userController = {
     const { name, email, password, dataOfBirth, city, mobileNumber, country } =
       await req.body;
     try {
-      if ((name, email, password, dataOfBirth, city, mobileNumber,country)) {
+      if ((name, email, password, dataOfBirth, city, mobileNumber, country)) {
         const user = await userModel.findOne({ email });
         if (!user) {
           const salt = await bcrypt.genSalt(10);
@@ -23,9 +23,9 @@ const userController = {
             email,
             password: hashedPassword,
             dataOfBirth,
-            address:{
+            address: {
               city,
-              country
+              country,
             },
             mobileNumber,
           });
@@ -97,13 +97,75 @@ const userController = {
   //Get all Users
   getAllUser: async (req, res) => {
     let usersList = await userModel.find({});
-    const users = await usersList.map((user) => user.password = undefined);
-    console.log(usersList.password) 
-      res.status(200).json({
+    const users = await usersList.map((user) => (user.password = undefined));
+    console.log(usersList.password);
+    res.status(200).json({
       status: true,
       message: "success",
       result: usersList,
     });
+  },
+  //Update User
+  updateUser: async (req, res) => {
+    let hashedPassword;
+    const userId = await req.params.id;
+    const { name, email, password, country, city, mobileNumber } =
+      await req.body;
+    try {
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        hashedPassword = await bcrypt.hash(password, salt);
+      }
+      const user = await userModel.findByIdAndUpdate(
+        { _id: userId },
+        {
+          $set: {
+            name,
+            email,
+            password: hashedPassword,
+            address: {
+              country,
+              city,
+            },
+            mobileNumber,
+          },
+        }
+      );
+
+      if (user) {
+        res.status(200).json({
+          status: true,
+          message: "User updated successfully",
+        });
+      } else {
+        res.status(404).json({
+          status: false,
+          message: "User not found",
+        });
+      }
+    } catch (err) {
+      res.status(404).json({
+        status: false,
+        message: `message ${err}`,
+      });
+    }
+  },
+
+  // Delete User
+  deleteUser: async (req, res) => {
+    const userId = await req.params.id;
+    try {
+      const deletedUser = await userModel.findByIdAndDelete(userId);
+      if (!deletedUser) {
+        res.status(404).json({ status: false, message: "User not found" });
+      } else {
+        res
+          .status(200)
+          .json({ status: true, message: "User deleted successfully" });
+      }
+    } catch (err) {
+      res.status(400).json({ status: false, message: `${err}` });
+    }
   },
 };
 
