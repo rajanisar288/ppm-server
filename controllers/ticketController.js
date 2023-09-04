@@ -7,7 +7,7 @@ const ticketController = {
         const { userId, ticketDesc , ticketTitle} = await req.body
         const image =await  req.file 
         try {
-          if( ticketDesc ,image , userId){
+          if( ticketDesc , userId){
             const createTicket = await ticket({
               userId,
               ticketDesc,
@@ -21,7 +21,10 @@ const ticketController = {
           }else{
             return res.send({
               status:false,
-              message:`Data is not showing`
+              message:`Data is not showing`,
+              data: {
+                userId,ticketDesc,ticketTitle,image
+              }
          })
           }
          
