@@ -37,7 +37,7 @@ const adminController = {
         if (isMatch) {
           res.status(409).json({
             status: false,
-            message: "email is already exists",
+            message: "Email is already exists",
           });
         } else {
           try {
@@ -91,7 +91,7 @@ const adminController = {
       if (!admin) {
         res.status(404).json({
           status: false,
-          message: "user not found",
+          message: "Admin not found",
         });
       } else {
         const passwordMatch = await bcrypt.compare(password, admin.password);
@@ -104,7 +104,7 @@ const adminController = {
           admin.password = undefined;
           res.status(200).json({
             status: true,
-            message: "you have login Successfully",
+            message: "You have login Successfully",
             result: admin,
             token: token,
           });
@@ -129,7 +129,7 @@ const adminController = {
     const admin = await adminModel.updateOne(
       { role: "admin" },
       {
-        $set: { profile: profileUrl },
+        $set: { profile:`http://localhost:7000/${profileUrl}`},
       }
     );
     res.status(200).json({

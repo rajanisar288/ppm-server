@@ -117,19 +117,7 @@ const userController = {
         hashedPassword = await bcrypt.hash(password, salt);
       }
       const user = await userModel.findByIdAndUpdate(
-        { _id: userId },
-        {
-          $set: {
-            name,
-            email,
-            password: hashedPassword,
-            address: {
-              country,
-              city,
-            },
-            mobileNumber,
-          },
-        }
+        { _id: userId },{$set: {name,email,password: hashedPassword,address: {country,city,},mobileNumber,},}
       );
 
       if (user) {
@@ -146,7 +134,7 @@ const userController = {
     } catch (err) {
       res.status(404).json({
         status: false,
-        message: `message ${err}`,
+        message: `Message ${err}`,
       });
     }
   },
