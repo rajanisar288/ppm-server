@@ -129,7 +129,7 @@ const adminController = {
     const admin = await adminModel.updateOne(
       { role: "admin" },
       {
-        $set: { profile:`http://localhost:7000/${profileUrl}`},
+        $set: { profile:`http://34.125.197.50:7000/${profileUrl}`},
       }
     );
     res.status(200).json({

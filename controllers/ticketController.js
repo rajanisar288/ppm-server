@@ -1,5 +1,6 @@
 
 import ticket from "../models/ticketModel.js";
+// import ticket from "../models/ticketModel.js";
 
 const ticketController = {
     createTicket: async (req , res)=>{
@@ -11,7 +12,7 @@ const ticketController = {
               userId,
               ticketDesc,
               ticketTitle,
-              image:`http://localhost:7000/${image.path}`
+              image:`http://34.125.197.50:7000/${image.path}`
             });
             await createTicket.save()
             res.send({
@@ -63,9 +64,15 @@ const ticketController = {
     //Get All Tickets
     getAllTickets: async (req, res)=>{
       try {
-        
+        const tickets = await ticket.find({})
+        res.status(200).json({
+          status:true, message:"Success", result:tickets
+        })
+
       } catch (error) {
-        
+          res.status(403).json({
+          status:false, message:`${error}`,
+        })
       }
     }
 };
